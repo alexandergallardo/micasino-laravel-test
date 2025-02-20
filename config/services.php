@@ -34,5 +34,10 @@ return [
             'channel' => env('SLACK_BOT_USER_DEFAULT_CHANNEL'),
         ],
     ],
-
+    'easy_money' => [
+        'base_uri' => env('EASY_MONEY_API_URL', 'http://localhost:3000/process'),
+    ],
+    'super_walletz' => [
+        'base_uri' => env('SUPER_WALLETZ_API_URL', 'http://localhost:3003/pay'),
+    ],
 ];
