@@ -63,6 +63,7 @@ node super-walletz.js # Ejecuta el servidor de Pago SuperWalletz
 - Se creó controlador para manejar las integraciones con las plataformas de pagos
 - Se definieron las rutas en routes/web.php
 - Se actualizó el archivo config/services.php para incluir las URLs de las APIs
+- Actualizado el archivo bootstrap/app.php para excluir la ruta api del webhook de la CSRF token
 - Se utilizó toastr alert para mostrar los mensajes de respuestas en el front-end
   - install the package using composer:
     - composer require yoeunes/toastr
