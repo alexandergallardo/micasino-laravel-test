@@ -1,15 +1,12 @@
 <?php
 
-// app/Http/Controllers/PaymentController.php
 namespace App\Http\Controllers;
 
 use App\Models\Transaction;
 use App\Models\PaymentLog;
 use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 
 class PaymentController extends Controller
 {
@@ -35,9 +32,6 @@ class PaymentController extends Controller
 
             if ($validator->fails()) {
                 return back()->with('error', $validator->errors()->first('amount'));
-                /*return response()->json([
-                    'errors' => $validator->errors()->first('amount'),
-                ], Response::HTTP_BAD_REQUEST);*/
             }
             $response = $this->processEasyMoney($request);
             $message = $response['message'];
@@ -47,15 +41,8 @@ class PaymentController extends Controller
             $response = $this->processSuperWalletz($request);
             $message = $response['message'];
             $status = $response['status'];
-            if ($status === 'success') {
-                return redirect($request->input('callback_url'))
-                    ->with('transaction_id', $response['transaction_id'])
-                    ->with('status', $status)
-                    ->with('message', $message);
-            }
         }
         return back()->with($status, $message);
-       // return response()->json(['error' => 'Invalid payment method'], Response::HTTP_BAD_REQUEST);
     }
 
     public function processEasyMoney(Request $request)
@@ -86,7 +73,6 @@ class PaymentController extends Controller
             'message' => $message,
             'status' => $status,
             ];
-        //return response()->json('Transacction Succesfully', $response->status());
     }
 
     public function processSuperWalletz(Request $request)
@@ -124,16 +110,21 @@ class PaymentController extends Controller
             'status' => $status,
             'transaction_id' => $transaction_id
         ];
-        //return response()->json('Transacction Succesfully', $response->status());
     }
 
     public function handleWebhook(Request $request)
     {
-        // Redirigir a una vista de confirmación con los datos del webhook
-        return redirect()->route('confirmation')->with([
-            'transaction_id' => session('transaction_id'),
-            'status' => session('status'),
-            'message' => session('message')
+        PaymentLog::create([
+            'payment_system' => 'SuperWalletz-Webhook',
+            'request' => $request->all()
         ]);
+
+        // Actualizar el estado de la transacción basado en el webhook recibido
+        $transaction = Transaction::where('transaction_id', $request->input('transaction_id'))->first();
+        if ($transaction) {
+            $transaction->update(['status' => $request->input('status')]);
+        }
+
+        return response()->json(['message' => 'Webhook received']);
     }
 }
