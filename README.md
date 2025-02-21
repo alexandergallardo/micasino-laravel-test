@@ -69,3 +69,9 @@ node super-walletz.js # Ejecuta el servidor de Pago SuperWalletz
   - After installation, publish the assets using:
     - php artisan flasher:install
 
+transactions table:
+![image](https://github.com/user-attachments/assets/7043864f-6810-41ee-9f92-570a1164f27c)
+
+payment_logs table:
+![image](https://github.com/user-attachments/assets/d8731d67-b857-4e02-a7fe-dc05b9427471)
+
