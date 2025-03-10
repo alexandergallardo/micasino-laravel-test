@@ -1,3 +1,24 @@
+### Desarrollo de la prueba técnica
+
+- Se crearon las migraciones para las tablas de transacciones y logs
+- Se crearon los modelos para las tablas de transacciones y logs
+- Se creó controlador para manejar las integraciones con las plataformas de pagos
+- Se definieron las rutas en routes/web.php
+- Se actualizó el archivo config/services.php para incluir las URLs de las APIs
+- Actualizado el archivo bootstrap/app.php para excluir la ruta api del webhook de la CSRF token
+- Se utilizó toastr alert para mostrar los mensajes de respuestas en el front-end
+  - install the package using composer:
+    - composer require yoeunes/toastr
+  - After installation, publish the assets using:
+    - php artisan flasher:install
+
+transactions table:
+![image](https://github.com/user-attachments/assets/7043864f-6810-41ee-9f92-570a1164f27c)
+
+payment_logs table:
+![image](https://github.com/user-attachments/assets/d8731d67-b857-4e02-a7fe-dc05b9427471)
+
+
 **Prueba Técnica Laravel: Integración de Sistemas de Pago**
 
 ### Descripción General:
@@ -55,24 +76,3 @@ node super-walletz.js # Ejecuta el servidor de Pago SuperWalletz
 ```
 
 ¡Buena suerte!
-
-### Desarrollo de la prueba técnica
-
-- Se crearon las migraciones para las tablas de transacciones y logs
-- Se crearon los modelos para las tablas de transacciones y logs
-- Se creó controlador para manejar las integraciones con las plataformas de pagos
-- Se definieron las rutas en routes/web.php
-- Se actualizó el archivo config/services.php para incluir las URLs de las APIs
-- Actualizado el archivo bootstrap/app.php para excluir la ruta api del webhook de la CSRF token
-- Se utilizó toastr alert para mostrar los mensajes de respuestas en el front-end
-  - install the package using composer:
-    - composer require yoeunes/toastr
-  - After installation, publish the assets using:
-    - php artisan flasher:install
-
-transactions table:
-![image](https://github.com/user-attachments/assets/7043864f-6810-41ee-9f92-570a1164f27c)
-
-payment_logs table:
-![image](https://github.com/user-attachments/assets/d8731d67-b857-4e02-a7fe-dc05b9427471)
-
